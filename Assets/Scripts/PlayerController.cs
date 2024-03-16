@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
     //For Ambience
     public AmbientRemote AmbienceRemote;
 
+    //For Knocking Sound
+    public KnockMaker IsKnocking;
 
 
     // Start is called before the first frame update
@@ -117,7 +119,20 @@ public class PlayerController : MonoBehaviour
         TaskCount = TaskCount + 1;
     }
 
-    
+    public void KnockSound()
+    {
+        if (IsKnocking.Knocking == true){
+            IsKnocking.Knocking = false;
+
+        }
+        else if (IsKnocking.Knocking == false)
+        {
+            IsKnocking.Knocking = true;
+        }
+
+    }
+
+
     public void Knock()
     {
         if(knocker == true)
@@ -130,15 +145,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void AmbientSwitch()
+    {
+        if (AmbienceRemote.IsAmbience == true)
+        {
+            AmbienceRemote.IsAmbience = false;
+        }
+        else if (AmbienceRemote.IsAmbience == false)
+        {
+            AmbienceRemote.IsAmbience = true;
+        }
+    }
 
     public void OnBlank()
     {
         Blanker.SetActive(true);
+        AmbientSwitch();
     }
 
     public void NoBlank()
     {
         Blanker.SetActive(false);
+        AmbientSwitch();
     }
 
     //Setting up methods to call for Stopping movement
@@ -146,7 +174,7 @@ public class PlayerController : MonoBehaviour
     public void ReadStart()
     {
         isReading = true;
-        AmbienceRemote.IsAmbience = false;
+        
         Debug.Log("Reading has Begun");
     }
 
@@ -158,7 +186,7 @@ public class PlayerController : MonoBehaviour
     public void ReadStop()
     {
         isReading = false;
-        AmbienceRemote.IsAmbience = true;
+        
         Debug.Log("Reading Stop");
     }
 
@@ -213,6 +241,7 @@ public class PlayerController : MonoBehaviour
             if(isReading == false)
             {
                 PauseMenu.SetActive(true);
+                Stepper.Stepping = false;
             }
             
         }
@@ -550,7 +579,10 @@ public class PlayerController : MonoBehaviour
             if (count == 0 && isReading == false)
             {
                 rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+                
                 Stepper.Stepping = true;
+                
+                
                 return true;
             }
             else

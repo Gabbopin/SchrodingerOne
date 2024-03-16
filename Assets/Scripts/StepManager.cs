@@ -21,13 +21,17 @@ public class StepManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Stepping == true)
+        if (Stepping == true )
         {
             Footstepper.SetActive(true);
+
         }
         else
         {
+            
             Footstepper.SetActive(false);
+            
+            
         }
     }
 }
