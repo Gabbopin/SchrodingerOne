@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject Blanker;
 
+    public GameObject ActualPauseMenu;
+
     //Connecting to To-Do List
     public TextMeshProUGUI m_Object;
 
@@ -77,6 +79,10 @@ public class PlayerController : MonoBehaviour
     //For Knocking Sound
     public KnockMaker IsKnocking;
 
+    //For Pausing
+
+    public bool IsActuallyPaused;
+
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +97,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         isReading = false;
         Paused = false;
+        NoActualPause();
 
         //TODO LIST
         task1 = "Check Pressure";
@@ -156,6 +163,24 @@ public class PlayerController : MonoBehaviour
             AmbienceRemote.IsAmbience = true;
         }
     }
+
+    public void OnActualPause()
+    {
+        ActualPauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        AmbientSwitch();
+        IsActuallyPaused = true;
+    }
+
+    public void NoActualPause()
+    {
+        ActualPauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        AmbientSwitch();
+        IsActuallyPaused = false;
+    }
+
+
 
     public void OnBlank()
     {
@@ -246,6 +271,20 @@ public class PlayerController : MonoBehaviour
             
         }
 
+        if (IsActuallyPaused == false)
+        {
+            
+        }
+        else
+        {
+            if (isReading == false)
+            {
+                
+                Stepper.Stepping = false;
+            }
+
+        }
+
         m_Object.text = ("To-Do: " + "\n" + "-" + task1 + "\n" + "-" + task2 + "\n" + "-" + task3 + "\n" + "-" + task4 + "\n" + "-" + task5);
 
         
@@ -297,6 +336,21 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    //for Pause Menu
+
+    public void OnPause()
+    {
+        if ( IsActuallyPaused == true)
+        {
+            NoActualPause();
+
+        }
+        else if (IsActuallyPaused == false)
+        {
+            OnActualPause();
+        }
+    }
+
 
     public void OnInteract()
     {

@@ -8,6 +8,7 @@ public class AmbientRemote : MonoBehaviour
     public AudioSource AmbienceOne;
 
     public bool IsAmbience;
+    public bool ShouldAmbient;
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +27,29 @@ public class AmbientRemote : MonoBehaviour
         {
             Ambience.SetActive(false);
         }
+
+
+        //This isn't necesary, but it makes sense to me.
+
+        if (ShouldAmbient == true)
+        {
+            
+        }
+        else
+        {
+            
+        }
+
+
+    }
+
+
+    public void AmbienceLeverOn()
+    {
+        IsAmbience = true;
+    }
+    public void AmbienceLeverOff()
+    {
+        IsAmbience = false;
     }
 }
