@@ -195,6 +195,7 @@ public class PlayerController : MonoBehaviour
         if(isReading == false)
         {
             PauseMenu.SetActive(true);
+            
             Time.timeScale = 0f;
             Paused = true;
             Debug.Log("Paused Game");
