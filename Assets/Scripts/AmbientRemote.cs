@@ -23,7 +23,7 @@ public class AmbientRemote : MonoBehaviour
         {
             Ambience.SetActive(true);
         }
-        else
+        else if (IsAmbience == false)
         {
             Ambience.SetActive(false);
         }
@@ -46,10 +46,10 @@ public class AmbientRemote : MonoBehaviour
 
     public void AmbienceLeverOn()
     {
-        IsAmbience = true;
+        
     }
     public void AmbienceLeverOff()
     {
-        IsAmbience = false;
+        
     }
 }
